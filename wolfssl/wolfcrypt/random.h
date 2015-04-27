@@ -24,6 +24,9 @@
 #define WOLF_CRYPT_RANDOM_H
 
 #include <wolfssl/wolfcrypt/types.h>
+   
+typedef word32 (*Rand_gen)(void);
+WOLFSSL_API void wolfSSL_SetRand_gen(Rand_gen fuction);
 
 #ifdef HAVE_FIPS
 /* for fips @wc_fips */

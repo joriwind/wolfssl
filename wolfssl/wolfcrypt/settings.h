@@ -30,6 +30,7 @@
     extern "C" {
 #endif
 
+#define CUSTOM_RAND_GENERATE rand_gen
 /* Uncomment next line if using IPHONE */
 /* #define IPHONE */
 

@@ -5052,6 +5052,7 @@ int ecc_test(void)
     }
 #endif /* defined(HAVE_ECC192) && defined(HAVE_ECC256) */
 
+#define FOURK_BUF 4096
 
 #ifdef WOLFSSL_KEY_GEN
     {

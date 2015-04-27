@@ -1159,6 +1159,18 @@ int wc_GenerateSeed(OS_Seed* os, byte* output, word32 sz)
     }
 
 #elif defined(CUSTOM_RAND_GENERATE)
+   
+   Rand_gen rand_gen;
+   
+   WOLFSSL_API void wolfSSL_SetRand_gen(Rand_gen function)
+   {
+       rand_gen = function;
+   }
+   word32 rand_gen2(void);
+   word32 rand_gen2(void){
+      
+      return (word32)0;
+   }
 
    /* Implement your own random generation function
     * word32 rand_gen(void);
@@ -1167,8 +1179,12 @@ int wc_GenerateSeed(OS_Seed* os, byte* output, word32 sz)
    int wc_GenerateSeed(OS_Seed* os, byte* output, word32 sz)
    {
      int i;
-
-     for (i = 0; i < sz; i++ )
+     (void)os;
+     if(rand_gen == NULL){
+        rand_gen = rand_gen2;
+     }
+     
+     for (i = 0; i < (int)sz; i++ )
          output[i] = CUSTOM_RAND_GENERATE();
 
      return 0;
@@ -1178,12 +1194,12 @@ int wc_GenerateSeed(OS_Seed* os, byte* output, word32 sz)
 
 #error "you need to write an os specific wc_GenerateSeed() here"
 
-/*
+
 int wc_GenerateSeed(OS_Seed* os, byte* output, word32 sz)
 {
     return 0;
 }
-*/
+
 
 
 #else /* !USE_WINDOWS_API && !HAVE_RPT_SYS && !MICRIUM && !NO_DEV_RANDOM */
